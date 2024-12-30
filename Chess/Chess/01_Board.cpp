@@ -118,6 +118,13 @@ int Board::valid_Move(std::string msgFromGraphics)
     {
         return 6; //error, Same color piece at des
     }
+    
+    if (!curr_square->valid_move(msgFromGraphics, _board))
+    {
+        return 6; // Invalid move
+    }
+
+    return 0;
 
 }
 
