@@ -2,7 +2,7 @@
 #include "stdafx.h"
 
 
-Board::Board() : _curr_player(1), isGameOver(false)
+Board::Board() : _curr_player(0), isGameOver(false)
 {
 	for (int i = 0; i < 8; i++)
 	{
@@ -81,11 +81,12 @@ int Board::valid_Move(std::string msgFromGraphics)
     Piece* curr_square;
     Piece* des_square;
 
-    int curr_col = msgFromGraphics[0] - 'a'; //convert char to int
-    int curr_row = (msgFromGraphics[1] - '0') - 1; //convert char to int - 1 so 0-7
+    int curr_col = msgFromGraphics[0] - 'a'; // Convert column char to index 0-7
+    int curr_row = 8 - (msgFromGraphics[1] - '0'); // Flip the row index for 2D array
 
-    int des_col = msgFromGraphics[2] - 'a'; //convert char to int
-    int des_row = (msgFromGraphics[3] - '0') - 1;
+    int des_col = msgFromGraphics[2] - 'a'; // Convert column char to index 0-7
+    int des_row = 8 - (msgFromGraphics[3] - '0'); // Flip the row index for 2D array
+
 
     if (curr_row < 0 || curr_row > 7 || curr_col < 0 || curr_col > 7 ||
         des_row < 0 || des_row > 7 || des_col < 0 || des_col > 7)
@@ -122,6 +123,11 @@ int Board::valid_Move(std::string msgFromGraphics)
     if (!curr_square->valid_move(msgFromGraphics, _board))
     {
         return 6; // Invalid move
+    }
+    else
+    {
+        _board[curr_row][curr_col] = nullptr; //move the pieces
+        _board[des_row][des_col] = curr_square;
     }
 
     return 0;

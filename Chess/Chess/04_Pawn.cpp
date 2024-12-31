@@ -15,5 +15,5 @@ Pawn::Pawn(int color) : Piece(color)
 
 bool Pawn::valid_move(std::string msgFromGraphics, Piece* board[8][8])
 {
-    return false;
+    return true;
 }
