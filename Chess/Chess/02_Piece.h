@@ -5,7 +5,7 @@
 class Piece
 {
 protected:
-	int _piaceColor; //0 with 1 black
+	int _piaceColor; //0 with 1 black -> https://www.learn-english-online.org/
 	std::string _piace_type; // type of piace
 public:
 	Piece(int color);
