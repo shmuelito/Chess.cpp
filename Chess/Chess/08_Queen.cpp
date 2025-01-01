@@ -2,10 +2,10 @@
 
 Queen::Queen(int color) : Piece(color) {
     if (color == 0) {
-        _piace_type = "Q";
+        _piece_type = "Q";
     }
     else {
-        _piace_type = "q";
+        _piece_type = "q";
     }
 }
 bool Queen::valid_move(std::string msgFromGraphics, Piece* board[8][8])

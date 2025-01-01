@@ -2,10 +2,10 @@
 
 Knight::Knight(int color) : Piece(color) {
     if (color == 0) {
-        _piace_type = "N";
+        _piece_type = "N";
     }
     else {
-        _piace_type = "n";
+        _piece_type = "n";
     }
 }
 bool Knight::valid_move(std::string msgFromGraphics, Piece* board[8][8])

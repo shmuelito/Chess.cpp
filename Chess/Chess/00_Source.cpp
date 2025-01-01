@@ -58,13 +58,6 @@ void main()
 
 	while (msgFromGraphics != "quit")
 	{
-		board.print_board();
-		int curr_col = msgFromGraphics[0] - 'a'; //convert char to int
-		int curr_row = 8 - (msgFromGraphics[1] - '0'); //convert char to int - 1 so 0-7
-
-		int des_col = msgFromGraphics[2] - 'a'; //convert char to int
-		int des_row = 8 - (msgFromGraphics[3] - '0'); //convert char to int - 1 so 0-7
-
 		int result = 0;
 		char strResult[2];
 
@@ -76,9 +69,9 @@ void main()
 		if (result == 0 || result == 1)
 		{
 			board.switchTurn();
-			//board[des_row][des_col] = board[curr_row][curr_col];
-			//board[curr_row][curr_col] = nullptr;                    <--- shmuel you fix this so it updates the board lil bro
 		}
+
+		board.print_board();
 
 		strResult[0] = char(result + '0');
 		strResult[1] = 0;

@@ -5,8 +5,8 @@
 class Piece
 {
 protected:
-	int _piaceColor; //0 with 1 black -> https://www.learn-english-online.org/
-	std::string _piace_type; // type of piace
+	int _piaceColor; //0 white 1 black 
+	std::string _piece_type; // type of piace
 public:
 	Piece(int color);
 	virtual	bool valid_move(std::string msgFromGraphics, Piece* _board[8][8]) = 0;
