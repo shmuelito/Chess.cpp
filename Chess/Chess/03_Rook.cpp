@@ -21,12 +21,12 @@
 
      if (curr_col == des_col)
      {
-         // If moving along the same column
+         // If moving the same column
          int start = std::min(curr_row, des_row) + 1;
          int end = std::max(curr_row, des_row);
          for (int i = start; i < end; ++i)
          {
-             if (_board[i][curr_col] != nullptr) // Check for obstacles
+             if (_board[i][curr_col] != nullptr) 
              {
                  return false;
              }
@@ -36,12 +36,12 @@
 
      if (curr_row == des_row)
      {
-         // If moving along the same row
+         // If moving the same row
          int start = std::min(curr_col, des_col) + 1;
          int end = std::max(curr_col, des_col);
          for (int i = start; i < end; ++i)
          {
-             if (_board[curr_row][i] != nullptr) // Check for obstacles
+             if (_board[curr_row][i] != nullptr)
              {
                  return false;
              }
@@ -49,7 +49,6 @@
          return true;
      }
 
-     // Not a valid rook move
      return false;
  }
 
