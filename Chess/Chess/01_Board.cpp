@@ -1,5 +1,6 @@
 #include "01_Board.h"
 #include "stdafx.h"
+#include <string>
 
 
 Board::Board() : _curr_player(0), isGameOver(false)
@@ -117,24 +118,84 @@ int Board::valid_Move(std::string msgFromGraphics)
 
     if (des_square != nullptr && curr_square->get_piece_color() == des_square->get_piece_color())
     {
-        return 6; //error, Same color piece at des
+        return 3; //error, Same color piece at des
     }
-    
+
     if (!curr_square->valid_move(msgFromGraphics, _board))
     {
         return 6; // Invalid move
     }
-    else
+
+    if (des_square != nullptr)
     {
-        _board[curr_row][curr_col] = nullptr; //move the pieces
-        _board[des_row][des_col] = curr_square;
+        if (des_square->get_piece_type() == "K" && _curr_player == 1 || des_square->get_piece_type() == "k" && _curr_player == 0)
+        {
+            return 6; 
+        }
+    }
+
+    //update the board
+    _board[curr_row][curr_col] = nullptr;
+    _board[des_row][des_col] = curr_square;
+
+    // Check if curr player king in check
+    if (check_if_check(1 - _curr_player))
+    {
+        // Undo the move
+        _board[curr_row][curr_col] = curr_square;
+        _board[des_row][des_col] = des_square;
+        return 4;
+    }
+
+    // Check if the opponent King is in check
+    if (check_if_check(_curr_player))
+    {
+        return 1;
     }
 
     return 0;
-
 }
 
-bool Board::check_if_check(int _curr_player)
+bool Board::check_if_check(int curr_player)
 {
-	return false;
+    std::string goalPosition;
+    std::string currPosition;
+    std::string msgFromGraphics;
+
+    for (int i = 0; i < 8; ++i)
+    {
+        for (int j = 0; j < 8; ++j)
+        {
+            if (_board[i][j] != nullptr && _board[i][j]->get_piece_color() != curr_player)
+            {
+                if (_board[i][j]->get_piece_type() == "k" || _board[i][j]->get_piece_type() == "K")
+                {
+                    goalPosition = std::string(1, 'a' + j) + std::to_string(8 - i);
+                    break;
+                }
+            }
+        }
+        if (!goalPosition.empty()) break;
+    }
+
+    for (int i = 0; i < 8; ++i)
+    {
+        for (int j = 0; j < 8; ++j)
+        {
+            if (_board[i][j] != nullptr && _board[i][j]->get_piece_color() == curr_player)
+            {
+                currPosition = std::string(1, 'a' + j) + std::to_string(8 - i);
+                msgFromGraphics = currPosition + goalPosition;
+
+                if (_board[i][j]->valid_move(msgFromGraphics, _board))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false; // No check
 }
+
+

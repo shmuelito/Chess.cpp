@@ -1,9 +1,12 @@
 #include "06_King.h"
-King::King(int color) : Piece(color) {
-    if (color == 0) {
+King::King(int color) : Piece(color) 
+{
+    if (color == 0) 
+    {
         _piece_type = "K";
     }
-    else {
+    else 
+    {
         _piece_type = "k";
     }
 }
