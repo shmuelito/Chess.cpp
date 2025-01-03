@@ -14,6 +14,18 @@ Board::Board() : _curr_player(0), isGameOver(false)
 	}
 }
 
+Board::~Board()
+{
+    for (int i = 0; i < 8; ++i)
+    {
+        for (int j = 0; j < 8; ++j)
+        {
+            delete(_board[i][j]);
+            _board[i][j] = nullptr;
+        }
+    }
+}
+
 void Board::intialise_board()
 {
     // Initialize pawns
@@ -134,6 +146,12 @@ int Board::valid_Move(std::string msgFromGraphics)
         }
     }
 
+    if (des_square != nullptr)
+    {
+        delete des_square;
+        _board[des_row][des_col] = nullptr; // Reset pointer
+    }
+
     //update the board
     _board[curr_row][curr_col] = nullptr;
     _board[des_row][des_col] = curr_square;
@@ -143,7 +161,7 @@ int Board::valid_Move(std::string msgFromGraphics)
     {
         // Undo the move
         _board[curr_row][curr_col] = curr_square;
-        _board[des_row][des_col] = des_square;
+        _board[des_row][des_col] = nullptr;
         return 4;
     }
 

@@ -11,6 +11,7 @@ protected:
 	bool isGameOver;
 public:
 	Board();
+	~Board();
 	void intialise_board();
 	void print_board();
 	void switchTurn();
