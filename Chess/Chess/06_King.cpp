@@ -10,6 +10,13 @@ King::King(int color) : Piece(color)
         _piece_type = "k";
     }
 }
+
+/**
+ * @brief 
+ * @param msgFromGraphics 
+ * @param board 
+ * @return 
+ */
 bool King::valid_move(std::string msgFromGraphics, Piece* board[8][8])
 {
     int curr_col = msgFromGraphics[0] - 'a'; // Convert column char to index 0-7

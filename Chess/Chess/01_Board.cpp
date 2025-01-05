@@ -2,7 +2,10 @@
 #include "stdafx.h"
 #include <string>
 
-
+/**
+ * @brief 
+ * 
+ */
 Board::Board() : _curr_player(0), isGameOver(false)
 {
 	for (int i = 0; i < 8; i++)
@@ -14,6 +17,9 @@ Board::Board() : _curr_player(0), isGameOver(false)
 	}
 }
 
+/**
+ * @brief 
+ */
 Board::~Board()
 {
     for (int i = 0; i < 8; ++i)
@@ -26,10 +32,14 @@ Board::~Board()
     }
 }
 
+/**
+ * @brief 
+ */
 void Board::intialise_board()
 {
     // Initialize pawns
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 8; ++i) 
+    {
         _board[1][i] = new Pawn(1); // Black pawns
         _board[6][i] = new Pawn(0); // White pawns
     }
@@ -61,6 +71,9 @@ void Board::intialise_board()
     _board[7][4] = new King(0);
 }
 
+/**
+ * @brief 
+ */
 void Board::print_board()
 {
     for (int i = 0; i < 8; i++)
@@ -76,7 +89,9 @@ void Board::print_board()
     }
 }
 
-
+/**
+ * @brief 
+ */
 void Board::switchTurn()
 {
     if (_curr_player == 1)
@@ -89,6 +104,11 @@ void Board::switchTurn()
     }
 }
 
+/**
+ * @brief 
+ * @param msgFromGraphics 
+ * @return 
+ */
 int Board::valid_Move(std::string msgFromGraphics)
 {
     Piece* curr_square;
@@ -138,7 +158,7 @@ int Board::valid_Move(std::string msgFromGraphics)
         return 6; // Invalid move
     }
 
-    if (des_square != nullptr)
+    if (des_square != nullptr) //cant eat the King
     {
         if (des_square->get_piece_type() == "K" && _curr_player == 1 || des_square->get_piece_type() == "k" && _curr_player == 0)
         {
@@ -174,12 +194,18 @@ int Board::valid_Move(std::string msgFromGraphics)
     return 0;
 }
 
+/**
+ * @brief 
+ * @param curr_player 
+ * @return 
+ */
 bool Board::check_if_check(int curr_player)
 {
     std::string goalPosition;
     std::string currPosition;
     std::string msgFromGraphics;
 
+    // Find opponents king position.
     for (int i = 0; i < 8; ++i)
     {
         for (int j = 0; j < 8; ++j)
@@ -188,7 +214,7 @@ bool Board::check_if_check(int curr_player)
             {
                 if (_board[i][j]->get_piece_type() == "k" || _board[i][j]->get_piece_type() == "K")
                 {
-                    goalPosition = std::string(1, 'a' + j) + std::to_string(8 - i);
+                    goalPosition = std::string(1, 'a' + j) + std::to_string(8 - i); //back to h2h4 format for valid_move
                     break;
                 }
             }
@@ -196,13 +222,14 @@ bool Board::check_if_check(int curr_player)
         if (!goalPosition.empty()) break;
     }
 
+    // Check if any current player's piece can move to the king's position.
     for (int i = 0; i < 8; ++i)
     {
         for (int j = 0; j < 8; ++j)
         {
             if (_board[i][j] != nullptr && _board[i][j]->get_piece_color() == curr_player)
             {
-                currPosition = std::string(1, 'a' + j) + std::to_string(8 - i);
+                currPosition = std::string(1, 'a' + j) + std::to_string(8 - i); //back to h2h4 format for valid_move
                 msgFromGraphics = currPosition + goalPosition;
 
                 if (_board[i][j]->valid_move(msgFromGraphics, _board))

@@ -11,6 +11,13 @@
          _piece_type = "r";
      }
  }
+
+ /**
+  * @brief 
+  * @param msgFromGraphics 
+  * @param _board 
+  * @return 
+  */
  bool Rook::valid_move(std::string msgFromGraphics, Piece* _board[8][8])
  {
      int curr_col = msgFromGraphics[0] - 'a'; // Convert column char to index 0-7

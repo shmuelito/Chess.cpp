@@ -8,6 +8,12 @@ Bishop::Bishop(int color) : Piece(color) {
     }
 }
 
+/**
+ * @brief 
+ * @param msgFromGraphics 
+ * @param board 
+ * @return 
+ */
 bool Bishop::valid_move(std::string msgFromGraphics, Piece* board[8][8]) 
 {
     int curr_col = msgFromGraphics[0] - 'a'; //convert char to int

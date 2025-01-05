@@ -8,6 +8,13 @@ Knight::Knight(int color) : Piece(color) {
         _piece_type = "n";
     }
 }
+
+/**
+ * @brief 
+ * @param msgFromGraphics 
+ * @param board 
+ * @return 
+ */
 bool Knight::valid_move(std::string msgFromGraphics, Piece* board[8][8])
 {
     int curr_col = msgFromGraphics[0] - 'a'; // Convert column char to index 0-7

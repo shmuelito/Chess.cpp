@@ -19,8 +19,8 @@ void main()
 {
 	srand(time_t(NULL));
 	
-	Board board;
-	board.intialise_board();
+	Board board; //ctate new class board
+	board.intialise_board(); //intialise it
 
 	Pipe p;
 	bool isConnect = p.connect();
@@ -58,23 +58,23 @@ void main()
 
 	while (msgFromGraphics != "quit")
 	{
-		int result = 0;
-		char strResult[2];
+		int result = 0; // to get the result from valid_Move
+		char strResult[2]; // to send the result for frontend 
 
 
-		result = board.valid_Move(msgFromGraphics);
+		result = board.valid_Move(msgFromGraphics); //set in to result the code from valid_Move
 		
 		// should handle the string the sent from graphics
 		// according the protocol. Ex: e2e4           (move e2 to e4)
-		if (result == 0 || result == 1)
+		if (result == 0 || result == 1 || result == 8) //if the code is valid Move switchTurn to next player 
 		{
-			board.switchTurn();
+			board.switchTurn(); 
 		}
 
-		board.print_board();
+		board.print_board(); //print the board
 
-		strResult[0] = char(result + '0');
-		strResult[1] = 0;
+		strResult[0] = char(result + '0'); //convert the result to char so i can send it to frontend
+		strResult[1] = 0; // last char need to be 0 idk why the frontend work like this 
 
 
 		// YOUR CODE
